@@ -1,0 +1,15 @@
+name: on-pull-request
+
+on:
+  pull_request:
+    branches: [
+      main,
+      dev
+    ]
+
+  workflow_dispatch:
+
+jobs:
+  test-package:
+    uses: ./.github/workflows/test-package.yml
+    secrets: inherit

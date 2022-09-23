@@ -1,0 +1,85 @@
+name: test-package
+
+on:
+  workflow_call:
+
+  workflow_dispatch:
+
+jobs:
+  run-pytest:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.6
+
+    - name: Install poetry
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install poetry
+
+    - name: Install dependencies
+      shell: bash
+      run: poetry install
+
+    - name: Test with pytest
+      run: poetry run pytest ./tests
+
+    - name: Mark as failed
+      if: ${{ failure() && github.event_name == 'pull_request' }}
+      uses: actions-ecosystem/action-add-labels@v1
+      with:
+        labels: test-failed
+
+  validate-version:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.6
+
+    - name: Install poetry
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install poetry
+
+    - name: Validate version
+      uses: mt-actions/validate-version@v1.0.0
+      with:
+        comparison: ${{ github.base_ref == 'main' && '>' || '>=' }}
+
+    - name: Mark as failed
+      if: ${{ failure() && github.event_name == 'pull_request' }}
+      uses: actions-ecosystem/action-add-labels@v1
+      with:
+        labels: tests-failed
+
+  all-passed:
+    if: always()
+    needs: [run-pytest, validate-version]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check for test-failed label
+        uses: danielchabr/pr-labels-checker@v3.1
+        with:
+          hasNone: tests-failed
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clear test-failed label
+        if: ${{ failure() }}
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: tests-failed

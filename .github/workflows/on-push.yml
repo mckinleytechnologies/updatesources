@@ -1,0 +1,17 @@
+name: on-push
+
+on:
+  push:
+    branches: [
+      main
+    ]
+
+jobs:
+  test-package:
+    uses: ./.github/workflows/test-package.yml
+    secrets: inherit
+
+  publish-and-tag:
+    needs: test-package
+    uses: ./.github/workflows/publish-and-tag.yml
+    secrets: inherit
