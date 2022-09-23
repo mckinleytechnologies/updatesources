@@ -3,7 +3,7 @@ import pathlib
 import os
 import filecmp
 
-from cmaketools.updatesources import update_sources
+from updatesources.updatesources import update_sources
 
 
 class Arguments:

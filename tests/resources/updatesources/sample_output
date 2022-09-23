@@ -1,11 +1,13 @@
 set(TestProject
-	../../../src/cmaketools/internal/updatesources/FileGenerator.py
-	../../../src/cmaketools/internal/updatesources/FileSearch.py
-	../../../src/cmaketools/internal/updatesources/HelpFormatter.py
-	../../../src/cmaketools/internal/updatesources/LineProcessor.py
-	../../../src/cmaketools/internal/updatesources/PathResolver.py
-	../../../src/cmaketools/internal/updatesources/Project.py
-	../../../src/cmaketools/internal/updatesources/ResolveDirectoryAction.py
-	../../../src/cmaketools/internal/updatesources/__init__.py
+	../../../src/updatesources/__init__.py
+	../../../src/updatesources/internal/FileGenerator.py
+	../../../src/updatesources/internal/FileSearch.py
+	../../../src/updatesources/internal/HelpFormatter.py
+	../../../src/updatesources/internal/LineProcessor.py
+	../../../src/updatesources/internal/PathResolver.py
+	../../../src/updatesources/internal/Project.py
+	../../../src/updatesources/internal/ResolveDirectoryAction.py
+	../../../src/updatesources/internal/__init__.py
+	../../../src/updatesources/updatesources.py
 )
 

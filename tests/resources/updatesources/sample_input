@@ -1,2 +1,2 @@
 PROJECT=TestProject
-../../../src/cmaketools/internal/updatesources,**.py
+../../../src/,**.py

@@ -1,23 +1,8 @@
-from . import PathResolver
-import os
 import pathlib
 
 
 _project_header = "PROJECT="
 _search_modifier_delimiter = ","
-
-# class Path:
-#     def __init__(self, path: str):
-#         self._path = pathlib.Path(path)
-#
-#     def is_file_path(self):
-#         return self._path.is_file()
-#
-#     def is_search_path(self):
-#
-#
-#     def __str__(self):
-#         return self._path
 
 
 class Line:
